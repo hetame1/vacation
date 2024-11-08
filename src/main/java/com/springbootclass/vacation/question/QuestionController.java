@@ -6,15 +6,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@RequestMapping("/question")
 @Controller
 public class QuestionController {
 
   private final QuestionService questionService;
 
-  @GetMapping("/question/list")
+  @GetMapping("/list")
   public String list(Model model) {
     // DB Table QUESTION 에서 질문 목록을 가져와 뷰 파일에 전달
     // DB 테이블에 접근하려면 Repository가 필요, 여기서는 QuestionRepository
@@ -30,7 +33,7 @@ public class QuestionController {
     return "question_list";
   }
 
-  @GetMapping("/question/detail/{id}")
+  @GetMapping("/detail/{id}")
   public String detail(Model model, @PathVariable("id") Integer id) {
     Question question = this.questionService.getQuestion(id);
     model.addAttribute("question", question);
